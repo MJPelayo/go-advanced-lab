@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	
 )
 
 /* =========================
@@ -131,3 +130,34 @@ func ExploreProcess() {
 	fmt.Println("Other processes cannot access these memory addresses due to process isolation.")
 }
 
+/* =========================
+   PART 5: Pointers & Escape Analysis
+   ========================= */
+
+func DoubleValue(x int) {
+	x *= 2
+	// Does NOT modify original value (pass-by-value)
+}
+
+func DoublePointer(x *int) {
+	*x *= 2
+	// Modifies original value (pointer)
+}
+
+func CreateOnStack() int {
+	x := 10
+	return x // stays on stack
+}
+
+func CreateOnHeap() *int {
+	x := 10
+	return &x // escapes to heap
+}
+
+func SwapValues(a, b int) (int, int) {
+	return b, a
+}
+
+func SwapPointers(a, b *int) {
+	*a, *b = *b, *a
+}

@@ -100,3 +100,20 @@ func TestCompose(t *testing.T) {
 		t.Fail()
 	}
 }
+
+/* ===== PART 5 TESTS ===== */
+
+func TestSwapValues(t *testing.T) {
+	a, b := SwapValues(5, 10)
+	if a != 10 || b != 5 {
+		t.Fail()
+	}
+}
+
+func TestSwapPointers(t *testing.T) {
+	a, b := 5, 10
+	SwapPointers(&a, &b)
+	if a != 10 || b != 5 {
+		t.Fail()
+	}
+}
