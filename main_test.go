@@ -65,3 +65,38 @@ func TestMakeAccumulator(t *testing.T) {
 		t.Fail()
 	}
 }
+
+/* ===== PART 3 TESTS ===== */
+
+func TestApply(t *testing.T) {
+	nums := []int{1, 2, 3}
+	result := Apply(nums, func(x int) int { return x * 2 })
+	if result[0] != 2 || result[2] != 6 {
+		t.Fail()
+	}
+}
+
+func TestFilter(t *testing.T) {
+	nums := []int{1, 2, 3, 4}
+	evens := Filter(nums, func(x int) bool { return x%2 == 0 })
+	if len(evens) != 2 {
+		t.Fail()
+	}
+}
+
+func TestReduce(t *testing.T) {
+	nums := []int{1, 2, 3, 4}
+	sum := Reduce(nums, 0, func(a, b int) int { return a + b })
+	if sum != 10 {
+		t.Fail()
+	}
+}
+
+func TestCompose(t *testing.T) {
+	addTwo := func(x int) int { return x + 2 }
+	double := func(x int) int { return x * 2 }
+	f := Compose(addTwo, double)
+	if f(5) != 12 {
+		t.Fail()
+	}
+}

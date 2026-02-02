@@ -76,3 +76,39 @@ func MakeAccumulator(initial int) (func(int), func(int), func() int) {
 
 	return add, sub, get
 }
+
+/* =========================
+   PART 3: Higher-Order Functions
+   ========================= */
+
+func Apply(nums []int, operation func(int) int) []int {
+	result := make([]int, len(nums))
+	for i, v := range nums {
+		result[i] = operation(v)
+	}
+	return result
+}
+
+func Filter(nums []int, predicate func(int) bool) []int {
+	var result []int
+	for _, v := range nums {
+		if predicate(v) {
+			result = append(result, v)
+		}
+	}
+	return result
+}
+
+func Reduce(nums []int, initial int, operation func(int, int) int) int {
+	acc := initial
+	for _, v := range nums {
+		acc = operation(acc, v)
+	}
+	return acc
+}
+
+func Compose(f, g func(int) int) func(int) int {
+	return func(x int) int {
+		return f(g(x))
+	}
+}
