@@ -161,3 +161,78 @@ func SwapValues(a, b int) (int, int) {
 func SwapPointers(a, b *int) {
 	*a, *b = *b, *a
 }
+
+/*
+Escape Analysis Explanation:
+CreateOnHeap returns a pointer to a local variable.
+Because the variable must live beyond the function call,
+the compiler moves it to the heap.
+*/
+
+/* =========================
+   BONUS: Memoized Factorial
+   ========================= */
+
+func MakeMemoizedFactorial() func(int) (int, error) {
+	cache := make(map[int]int)
+
+	return func(n int) (int, error) {
+		if n < 0 {
+			return 0, errors.New("factorial is not defined for negative numbers")
+		}
+
+		if val, ok := cache[n]; ok {
+			return val, nil
+		}
+
+		result := 1
+		for i := 1; i <= n; i++ {
+			result *= i
+		}
+
+		cache[n] = result
+		return result, nil
+	}
+}
+
+/* =========================
+   PART 6: main()
+   ========================= */
+
+func main() {
+	ExploreProcess()
+
+	fmt.Println("\n=== Math Operations ===")
+
+	if fact, err := Factorial(5); err != nil {
+		fmt.Println("Factorial error:", err)
+	} else {
+		fmt.Println("Factorial(5):", fact)
+	}
+
+	if prime, err := IsPrime(17); err != nil {
+		fmt.Println("IsPrime error:", err)
+	} else {
+		fmt.Println("IsPrime(17):", prime)
+	}
+
+	if pow, err := Power(2, 8); err != nil {
+		fmt.Println("Power error:", err)
+	} else {
+		fmt.Println("Power(2,8):", pow)
+	}
+
+	fmt.Println("\n=== Closures ===")
+	c1 := MakeCounter(0)
+	c2 := MakeCounter(100)
+	fmt.Println(c1(), c1(), c2())
+
+	fmt.Println("\n=== Higher-Order Functions ===")
+	nums := []int{1, 2, 3, 4, 5}
+	fmt.Println("Squared:", Apply(nums, func(x int) int { return x * x }))
+
+	fmt.Println("\n=== Bonus: Memoized Factorial ===")
+	memo := MakeMemoizedFactorial()
+	fmt.Println(memo(5))
+	fmt.Println(memo(5))
+}

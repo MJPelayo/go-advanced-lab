@@ -117,3 +117,14 @@ func TestSwapPointers(t *testing.T) {
 		t.Fail()
 	}
 }
+
+/* ===== BONUS TEST ===== */
+
+func TestMakeMemoizedFactorial(t *testing.T) {
+	f := MakeMemoizedFactorial()
+	v1, _ := f(5)
+	v2, _ := f(5)
+	if v1 != 120 || v2 != 120 {
+		t.Fail()
+	}
+}
