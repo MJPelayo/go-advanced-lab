@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	
-	
 )
 
 /* =========================
@@ -42,4 +41,38 @@ func Power(base, exponent int) (int, error) {
 		result *= base
 	}
 	return result, nil
+}
+
+/* =========================
+   PART 2: Closures
+   ========================= */
+
+func MakeCounter(start int) func() int {
+	count := start
+	return func() int {
+		count++
+		return count
+	}
+}
+
+func MakeMultiplier(factor int) func(int) int {
+	return func(x int) int {
+		return x * factor
+	}
+}
+
+func MakeAccumulator(initial int) (func(int), func(int), func() int) {
+	value := initial
+
+	add := func(x int) {
+		value += x
+	}
+	sub := func(x int) {
+		value -= x
+	}
+	get := func() int {
+		return value
+	}
+
+	return add, sub, get
 }

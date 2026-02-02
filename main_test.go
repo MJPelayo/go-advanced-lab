@@ -41,5 +41,27 @@ func TestPower(t *testing.T) {
 	}
 }
 
+/* ===== PART 2 TESTS ===== */
 
+func TestMakeCounter(t *testing.T) {
+	c := MakeCounter(0)
+	if c() != 1 || c() != 2 {
+		t.Fail()
+	}
+}
 
+func TestMakeMultiplier(t *testing.T) {
+	double := MakeMultiplier(2)
+	if double(5) != 10 {
+		t.Fail()
+	}
+}
+
+func TestMakeAccumulator(t *testing.T) {
+	add, sub, get := MakeAccumulator(100)
+	add(50)
+	sub(30)
+	if get() != 120 {
+		t.Fail()
+	}
+}
