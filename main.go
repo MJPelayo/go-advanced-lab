@@ -2,6 +2,8 @@ package main
 
 import (
 	"errors"
+	"fmt"
+	"os"
 	
 )
 
@@ -112,3 +114,20 @@ func Compose(f, g func(int) int) func(int) int {
 		return f(g(x))
 	}
 }
+
+/* =========================
+   PART 4: Process Explorer
+   ========================= */
+
+func ExploreProcess() {
+	fmt.Println("=== Process Information ===")
+	fmt.Println("Process ID:", os.Getpid())
+	fmt.Println("Parent Process ID:", os.Getppid())
+
+	data := []int{1, 2, 3, 4, 5}
+	fmt.Printf("Address of slice header: %p\n", &data)
+	fmt.Printf("Address of first element: %p\n", &data[0])
+
+	fmt.Println("Other processes cannot access these memory addresses due to process isolation.")
+}
+
